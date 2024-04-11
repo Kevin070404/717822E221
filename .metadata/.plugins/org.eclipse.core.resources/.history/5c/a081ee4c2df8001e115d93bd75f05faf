@@ -1,0 +1,119 @@
+package ui;
+
+import java.util.Scanner;
+import database.DatabaseConnector;
+import entities.Student;
+import entities.Course;
+import entities.Faculty;
+
+public class UniversityEnrollmentSystemUI {
+    private DatabaseConnector databaseConnector;
+
+    public UniversityEnrollmentSystemUI(DatabaseConnector databaseConnector) {
+        this.databaseConnector = databaseConnector;
+    }
+
+    public void addStudent(String name, String email) {
+        // Database operations to add student
+        System.out.println("Student added successfully.");
+    }
+
+    public void addCourse(String courseName, String courseDescription) {
+        // Database operations to add course
+        System.out.println("Course added successfully.");
+    }
+
+    public void addFaculty(String name, String email) {
+        // Database operations to add faculty
+        System.out.println("Faculty added successfully.");
+    }
+
+    public void enrollStudentInCourse(int studentID, int courseID) {
+        // Database operations to enroll student in course
+        System.out.println("Student enrolled in course successfully.");
+    }
+
+    public void displayAllCourses() {
+        // Database operations to display all courses
+        System.out.println("\nAvailable Courses:");
+        System.out.println("Course ID\tCourse Name\tCourse Description");
+        System.out.println("1\t\tMath\t\tCalculus");
+        System.out.println("2\t\tPhysics\t\tQuantum Mechanics");
+    }
+
+    public void assignFacultyToCourse(int facultyID, int courseID) {
+        // Database operations to assign faculty to course
+        System.out.println("Faculty assigned to course successfully.");
+    }
+
+    public void startUI() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nUniversity Enrollment System Menu:");
+            System.out.println("1. Add Student");
+            System.out.println("2. Add Course");
+            System.out.println("3. Add Faculty");
+            System.out.println("4. Enroll Student in Course");
+            System.out.println("5. Assign Faculty to Course");
+            System.out.println("6. Display All Courses");
+            System.out.println("7. Exit");
+
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter student name: ");
+                    String studentName = scanner.next();
+                    System.out.print("Enter student email: ");
+                    String studentEmail = scanner.next();
+                    addStudent(studentName, studentEmail);
+                    break;
+                case 2:
+                    System.out.print("Enter course name: ");
+                    String courseName = scanner.next();
+                    System.out.print("Enter course description: ");
+                    String courseDescription = scanner.next();
+                    addCourse(courseName, courseDescription);
+                    break;
+                case 3:
+                    System.out.print("Enter faculty name: ");
+                    String facultyName = scanner.next();
+                    System.out.print("Enter faculty email: ");
+                    String facultyEmail = scanner.next();
+                    addFaculty(facultyName, facultyEmail);
+                    break;
+                case 4:
+                    System.out.print("Enter student ID: ");
+                    int studentID = scanner.nextInt();
+                    System.out.print("Enter course ID: ");
+                    int courseID = scanner.nextInt();
+                    enrollStudentInCourse(studentID, courseID);
+                    break;
+                case 5:
+                    System.out.print("Enter faculty ID: ");
+                    int facultyID = scanner.nextInt();
+                    System.out.print("Enter course ID: ");
+                    int courseIDForFaculty = scanner.nextInt();
+                    assignFacultyToCourse(facultyID, courseIDForFaculty);
+                    break;
+                case 6:
+                    displayAllCourses();
+                    break;
+                case 7:
+                    databaseConnector.closeConnection();
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        DatabaseConnector databaseConnector = new DatabaseConnector();
+        UniversityEnrollmentSystemUI enrollmentSystemUI = new UniversityEnrollmentSystemUI(databaseConnector);
+        enrollmentSystemUI.startUI();
+    }
+}

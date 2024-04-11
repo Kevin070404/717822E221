@@ -1,0 +1,108 @@
+// Package for user interface classes
+package ui;
+
+// Import necessary packages
+import java.util.Scanner;
+import database.DatabaseConnector;
+import entities.Student;
+import entities.Course;
+import entities.Faculty;
+
+public class UniversityEnrollmentSystemUI {
+    // DatabaseConnector object for database connection
+    private DatabaseConnector databaseConnector;
+
+    // Constructor to initialize DatabaseConnector
+    public UniversityEnrollmentSystemUI(DatabaseConnector databaseConnector) {
+        this.databaseConnector = databaseConnector;
+    }
+
+    // Method to add student
+    public void addStudent(String name, String email) {
+        // Database operations to add student
+    }
+
+    // Method to add course
+    public void addCourse(String courseName, String courseDescription) {
+        // Database operations to add course
+    }
+
+    // Method to add faculty
+    public void addFaculty(String name, String email) {
+        // Database operations to add faculty
+    }
+
+    // Method to enroll student in course
+    public void enrollStudentInCourse(int studentID, int courseID) {
+        // Database operations to enroll student in course
+    }
+
+    // Method to display all courses
+    public void displayAllCourses() {
+        // Database operations to display all courses
+    }
+
+    // Method to assign faculty to course
+    public void assignFacultyToCourse(int facultyID, int courseID) {
+        // Database operations to assign faculty to course
+    }
+
+    // Method to start the user interface
+    public void startUI() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nUniversity Enrollment System Menu:");
+            System.out.println("1. Add Student");
+            System.out.println("2. Add Course");
+            System.out.println("3. Add Faculty");
+            System.out.println("4. Enroll Student in Course");
+            System.out.println("5. Assign Faculty to Course");
+            System.out.println("6. Display All Courses");
+            System.out.println("7. Exit");
+
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    // Add Student
+                    break;
+                case 2:
+                    // Add Course
+                    break;
+                case 3:
+                    // Add Faculty
+                    break;
+                case 4:
+                    // Enroll Student in Course
+                    break;
+                case 5:
+                    // Assign Faculty to Course
+                    break;
+                case 6:
+                    // Display All Courses
+                    break;
+                case 7:
+                    // Close connection and exit
+                    databaseConnector.closeConnection();
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    // Main method to start the application
+    public static void main(String[] args) {
+        // Create DatabaseConnector object
+        DatabaseConnector databaseConnector = new DatabaseConnector();
+
+        // Create UniversityEnrollmentSystemUI object
+        UniversityEnrollmentSystemUI enrollmentSystemUI = new UniversityEnrollmentSystemUI(databaseConnector);
+
+        // Start the user interface
+        enrollmentSystemUI.startUI();
+    }
+}

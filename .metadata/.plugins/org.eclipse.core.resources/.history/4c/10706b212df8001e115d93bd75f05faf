@@ -1,0 +1,44 @@
+package database;
+//Import necessary packages
+import java.sql.*;
+import java.util.*;
+
+public class DatabaseConnector {
+ // Connection object for database connection
+ private Connection connection;
+
+ // Constructor to establish database connection
+ public DatabaseConnector() {
+     try {
+         // Load MySQL JDBC driver and establish connection
+         Class.forName("com.mysql.cj.jdbc.Driver");
+         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "root");
+         // Check if connection is successful
+         if (connection != null) {
+             System.out.println("Database connection established successfully.");
+         } else {
+             System.out.println("Failed to establish database connection.");
+         }
+     } catch (ClassNotFoundException | SQLException e) {
+         e.printStackTrace();
+     }
+ }
+
+ // Method to close database connection
+ public void closeConnection() {
+     try {
+         // Check if connection is not null and is not closed, then close the connection
+         if (connection != null && !connection.isClosed()) {
+             connection.close();
+             System.out.println("Database connection closed.");
+         }
+     } catch (SQLException e) {
+         e.printStackTrace();
+     }
+ }
+
+ // Getter method for connection object
+ public Connection getConnection() {
+     return connection;
+ }
+}

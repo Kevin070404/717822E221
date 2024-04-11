@@ -1,0 +1,380 @@
+package project;
+import java.sql.*;
+import java.util.*;
+
+public class sample {
+    private Connection connection;
+
+    public sample() {
+        try {
+            // Load the MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Update connection details with your database credentials
+            String url = "jdbc:mysql://localhost:3306/project";
+            String user = "root";
+            String password = "root";
+            
+            // Attempt to establish the database connection
+            connection = DriverManager.getConnection(url, user, password);
+            if (connection != null) {
+                System.out.println("Database connection established successfully.");
+            } else {
+                System.out.println("Failed to establish database connection.");
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Add Student method
+    public void addStudent(String name, String email) {
+        try {
+            String query = "INSERT INTO students (name, email) VALUES (?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, name);
+            statement.setString(2, email);
+            statement.executeUpdate();
+            System.out.println("Student added successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Update Student Information method
+    public void updateStudent(int studentID, String newStudentName, String newStudentEmail) {
+        try {
+            String query = "UPDATE students SET name = ?, email = ? WHERE student_id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, newStudentName);
+            statement.setString(2, newStudentEmail);
+            statement.setInt(3, studentID);
+            statement.executeUpdate();
+            System.out.println("Student information updated successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Delete Student method
+    public void deleteStudent(int studentID) {
+        try {
+            String query = "DELETE FROM students WHERE student_id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, studentID);
+            statement.executeUpdate();
+            System.out.println("Student deleted successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Add Course method
+    public void addCourse(String courseName, String courseDescription) {
+        try {
+            String query = "INSERT INTO courses (course_name, course_description) VALUES (?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, courseName);
+            statement.setString(2, courseDescription);
+            statement.executeUpdate();
+            System.out.println("Course added successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Update Course Information method
+    public void updateCourse(int courseID, String newCourseName, String newCourseDescription) {
+        try {
+            String query = "UPDATE courses SET course_name = ?, course_description = ? WHERE course_id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, newCourseName);
+            statement.setString(2, newCourseDescription);
+            statement.setInt(3, courseID);
+            statement.executeUpdate();
+            System.out.println("Course information updated successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Delete Course method
+    public void deleteCourse(int courseID) {
+        try {
+            String query = "DELETE FROM courses WHERE course_id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, courseID);
+            statement.executeUpdate();
+            System.out.println("Course deleted successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Add Faculty method
+    public void addFaculty(String name, String email) {
+        try {
+            String query = "INSERT INTO faculty (name, email) VALUES (?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, name);
+            statement.setString(2, email);
+            statement.executeUpdate();
+            System.out.println("Faculty added successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Update Faculty Information method
+    public void updateFaculty(int facultyID, String newFacultyName, String newFacultyEmail) {
+        try {
+            String query = "UPDATE faculty SET name = ?, email = ? WHERE faculty_id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, newFacultyName);
+            statement.setString(2, newFacultyEmail);
+            statement.setInt(3, facultyID);
+            statement.executeUpdate();
+            System.out.println("Faculty information updated successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Delete Faculty method
+    public void deleteFaculty(int facultyID) {
+        try {
+            String query = "DELETE FROM faculty WHERE faculty_id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, facultyID);
+            statement.executeUpdate();
+            System.out.println("Faculty deleted successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Enroll Student in Course method
+    public void enrollStudentInCourse(int studentID, int courseID) {
+        try {
+            String query = "INSERT INTO enrollments (student_id, course_id, enrollment_date) VALUES (?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, studentID);
+            statement.setInt(2, courseID);
+            
+            // Use java.sql.Date for SQL date values
+            java.sql.Date enrollmentDate = new java.sql.Date(System.currentTimeMillis());
+            statement.setDate(3, enrollmentDate);
+            
+            statement.executeUpdate();
+            System.out.println("Student enrolled in course successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Assign Faculty to Course method
+    public void assignFacultyToCourse(int facultyID, int courseID) {
+        try {
+            String query = "UPDATE courses SET faculty_id = ? WHERE course_id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, facultyID);
+            statement.setInt(2, courseID);
+            statement.executeUpdate();
+            System.out.println("Faculty assigned to course successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Display All Courses method
+    public void displayAllCourses() {
+        try {
+            String query = "SELECT * FROM courses";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            System.out.println("Available Courses:");
+            System.out.println("Course ID\tCourse Name\tCourse Description\tFaculty ID");
+
+            while (resultSet.next()) {
+                int courseId = resultSet.getInt("course_id");
+                String courseName = resultSet.getString("course_name");
+                String courseDescription = resultSet.getString("course_description");
+                int facultyId = resultSet.getInt("faculty_id");
+
+                System.out.println(courseId + "\t\t" + courseName + "\t\t" + courseDescription + "\t\t" + facultyId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Close database connection
+    public void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+                System.out.println("Database connection closed.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        UniversityEnrollmentSystem enrollmentSystem = new UniversityEnrollmentSystem();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nUniversity Enrollment System Menu:");
+            System.out.println("1. Manage Students");
+            System.out.println("2. Manage Courses");
+            System.out.println("3. Manage Faculty");
+            System.out.println("4. Enroll Student in Course");
+            System.out.println("5. Assign Faculty to Course");
+            System.out.println("6. Display All Courses");
+            System.out.println("7. Exit");
+
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    // Student Management Menu
+                    while (true) {
+                        System.out.println("\nStudent Management Menu:");
+                        System.out.println("1. Add Student");
+                        System.out.println("2. Update Student Information");
+                        System.out.println("3. Delete Student");
+                        System.out.println("4. Back to Main Menu");
+
+                        System.out.print("Enter your choice: ");
+                        int studentChoice = scanner.nextInt();
+
+                        switch (studentChoice) {
+                            case 1:
+                                System.out.print("Enter student name: ");
+                                String studentName = scanner.next();
+                                System.out.print("Enter student email: ");
+                                String studentEmail = scanner.next();
+                                enrollmentSystem.addStudent(studentName, studentEmail);
+                                break;
+                            case 2:
+                                System.out.print("Enter student ID to update: ");
+                                int studentIDToUpdate = scanner.nextInt();
+                                System.out.print("Enter new student name: ");
+                                String newStudentName = scanner.next();
+                                System.out.print("Enter new student email: ");
+                                String newStudentEmail = scanner.next();
+                                enrollmentSystem.updateStudent(studentIDToUpdate, newStudentName, newStudentEmail);
+                                break;
+                            case 3:
+                                System.out.print("Enter student ID to delete: ");
+                                int studentIDToDelete = scanner.nextInt();
+                                enrollmentSystem.deleteStudent(studentIDToDelete);
+                                break;
+                            case 4:
+                                break;
+                            default:
+                                System.out.println("Invalid choice. Please try again.");
+                        }
+                    }
+                case 2:
+                    // Course Management Menu
+                    while (true) {
+                        System.out.println("\nCourse Management Menu:");
+                        System.out.println("1. Add Course");
+                        System.out.println("2. Update Course Information");
+                        System.out.println("3. Delete Course");
+                        System.out.println("4. Back to Main Menu");
+
+                        System.out.print("Enter your choice: ");
+                        int courseChoice = scanner.nextInt();
+
+                        switch (courseChoice) {
+                            case 1:
+                                System.out.print("Enter course name: ");
+                                String courseName = scanner.next();
+                                System.out.print("Enter course description: ");
+                                String courseDescription = scanner.next();
+                                enrollmentSystem.addCourse(courseName, courseDescription);
+                                break;
+                            case 2:
+                                System.out.print("Enter course ID to update: ");
+                                int courseIDToUpdate = scanner.nextInt();
+                                System.out.print("Enter new course name: ");
+                                String newCourseName = scanner.next();
+                                System.out.print("Enter new course description: ");
+                                String newCourseDescription = scanner.next();
+                                enrollmentSystem.updateCourse(courseIDToUpdate, newCourseName, newCourseDescription);
+                                break;
+                            case 3:
+                                System.out.print("Enter course ID to delete: ");
+                                int courseIDToDelete = scanner.nextInt();
+                                enrollmentSystem.deleteCourse(courseIDToDelete);
+                                break;
+                            case 4:
+                                break;
+                            default:
+                                System.out.println("Invalid choice. Please try again.");
+                        }
+                    }
+                case 3:
+                    // Faculty Management Menu
+                    while (true) {
+                        System.out.println("\nFaculty Management Menu:");
+                        System.out.println("1. Add Faculty");
+                        System.out.println("2. Update Faculty Information");
+                        System.out.println("3. Delete Faculty");
+                        System.out.println("4. Back to Main Menu");
+
+                        System.out.print("Enter your choice: ");
+                        int facultyChoice = scanner.nextInt();
+
+                        switch (facultyChoice) {
+                            case 1:
+                                System.out.print("Enter faculty name: ");
+                                String facultyName = scanner.next();
+                                System.out.print("Enter faculty email: ");
+                                String facultyEmail = scanner.next();
+                                enrollmentSystem.addFaculty(facultyName, facultyEmail);
+                                break;
+                            case 2:
+                                System.out.print("Enter faculty ID to update: ");
+                                int facultyIDToUpdate = scanner.nextInt();
+                                System.out.print("Enter new faculty name: ");
+                                String newFacultyName = scanner.next();
+                                System.out.print("Enter new faculty email: ");
+                                String newFacultyEmail = scanner.next();
+                                enrollmentSystem.updateFaculty(facultyIDToUpdate, newFacultyName, newFacultyEmail);
+                                break;
+                            case 3:
+                                System.out.print("Enter faculty ID to delete: ");
+                                int facultyIDToDelete = scanner.nextInt();
+                                enrollmentSystem.deleteFaculty(facultyIDToDelete);
+                                break;
+                            case 4:
+                                break;
+                            default:
+                                System.out.println("Invalid choice. Please try again.");
+                        }
+                    }
+                case 4:
+                    // Enroll Student in Course
+                    break;
+                case 5:
+                    // Assign Faculty to Course
+                    break;
+                case 6:
+                    enrollmentSystem.displayAllCourses();
+                    break;
+                case 7:
+                    enrollmentSystem.closeConnection();
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
