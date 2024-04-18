@@ -1,3 +1,4 @@
+
 # University Enrollment System
 
 The University Enrollment System is a Java console application designed to manage student enrollments, courses, and faculty assignments within a university setting. It provides functionalities to add students, courses, and faculty members to a database, enroll students in courses, assign faculty to courses, and display available courses.
@@ -17,7 +18,6 @@ The University Enrollment System is a Java console application designed to manag
     • faculty: Columns - faculty_id (INT, AUTO_INCREMENT), name (VARCHAR), email (VARCHAR)
     •  enrollments: Columns - enrollment_id (INT, AUTO_INCREMENT), student_id (INT), course_id (INT), enrollment_date (DATE)
   4. Ensure your MySQL server is running on localhost with the default port 3306, and the username and password are set to the server which has the database.
-
 ## Application Setup
   1. Clone this repository to your local machine.
   2. Navigate to the project directory in your terminal or command prompt.
