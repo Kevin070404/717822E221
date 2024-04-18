@@ -7,6 +7,7 @@ The University Enrollment System is a Java console application designed to manag
 
 ## Prerequisites
   • Java Development Kit (JDK) installed on your system.
+  
   • MySQL database server installed on your system.
 
  ## Database 
