@@ -5,10 +5,12 @@ import java.util.*;
 public class UniversityEnrollmentSystem {
     private Connection connection;
 
+    // Constructor to initialize database connection
     public UniversityEnrollmentSystem() {
         try {
+            // Load MySQL JDBC driver and establish connection
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "root");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", username, password);
             if (connection != null) {
                 System.out.println("Database connection established successfully.");
             } else {
@@ -19,6 +21,7 @@ public class UniversityEnrollmentSystem {
         }
     }
 
+    // Method to add a new student to the database
     public void addStudent(String name, String email) {
         try {
             String query = "INSERT INTO students (name, email) VALUES (?, ?)";
@@ -32,6 +35,7 @@ public class UniversityEnrollmentSystem {
         }
     }
 
+    // Method to add a new course to the database
     public void addCourse(String courseName, String courseDescription) {
         try {
             String query = "INSERT INTO courses (course_name, course_description) VALUES (?, ?)";
@@ -45,6 +49,7 @@ public class UniversityEnrollmentSystem {
         }
     }
 
+    // Method to add a new faculty member to the database
     public void addFaculty(String name, String email) {
         try {
             String query = "INSERT INTO faculty (name, email) VALUES (?, ?)";
@@ -58,6 +63,7 @@ public class UniversityEnrollmentSystem {
         }
     }
 
+    // Method to enroll a student in a course
     public void enrollStudentInCourse(int studentID, int courseID) {
         try {
             String query = "INSERT INTO enrollments (student_id, course_id, enrollment_date) VALUES (?, ?, ?)";
@@ -65,6 +71,7 @@ public class UniversityEnrollmentSystem {
             statement.setInt(1, studentID);
             statement.setInt(2, courseID);
             
+            // Set enrollment date to current date
             java.sql.Date enrollmentDate = new java.sql.Date(System.currentTimeMillis());
             statement.setDate(3, enrollmentDate);
             
@@ -75,6 +82,7 @@ public class UniversityEnrollmentSystem {
         }
     }
     
+    // Method to display all available courses
     public void displayAllCourses() {
         try {
             String query = "SELECT * FROM courses";
@@ -84,6 +92,7 @@ public class UniversityEnrollmentSystem {
             System.out.println("\nAvailable Courses:");
             System.out.println("Course ID\tCourse Name\tCourse Description");
 
+            // Print course details
             while (resultSet.next()) {
                 int courseId = resultSet.getInt("course_id");
                 String courseName = resultSet.getString("course_name");
@@ -96,6 +105,7 @@ public class UniversityEnrollmentSystem {
         }
     }
 
+    // Method to assign a faculty member to a course
     public void assignFacultyToCourse(int facultyID, int courseID) {
         try {
             String query = "UPDATE courses SET faculty_id = ? WHERE course_id = ?";
@@ -109,6 +119,7 @@ public class UniversityEnrollmentSystem {
         }
     }
 
+    // Method to close the database connection
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
@@ -119,11 +130,15 @@ public class UniversityEnrollmentSystem {
             e.printStackTrace();
         }
     }
+
+    // Main method to run the application
     @SuppressWarnings("resource")
-	public static void main(String[] args) {
+    public static void main(String[] args) {
+        // Create an instance of the UniversityEnrollmentSystem class
         UniversityEnrollmentSystem enrollmentSystem = new UniversityEnrollmentSystem();
         Scanner scanner = new Scanner(System.in);
 
+        // Display menu options and handle user input
         while (true) {
             System.out.println("\nUniversity Enrollment System Menu:");
             System.out.println("1. Add Student");
@@ -186,4 +201,3 @@ public class UniversityEnrollmentSystem {
         }
     }
 }
-
