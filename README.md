@@ -22,7 +22,7 @@ The University Enrollment System is a Java console application designed to manag
     • faculty: Columns - faculty_id (INT, AUTO_INCREMENT), name (VARCHAR), email (VARCHAR)
     
     •  enrollments: Columns - enrollment_id (INT, AUTO_INCREMENT), student_id (INT), course_id (INT), enrollment_date (DATE)
-  5. Ensure your MySQL server is running on localhost with the default port 3306, and the username and password are set to the server which has the database.
+  4. Ensure your MySQL server is running on localhost with the default port 3306, and the username and password are set to the server which has the database.
      
 ## Application Setup
   1. Clone this repository to your local machine.
