@@ -1,4 +1,3 @@
-
 # University Enrollment System
 
 The University Enrollment System is a Java console application designed to manage student enrollments, courses, and faculty assignments within a university setting. It provides functionalities to add students, courses, and faculty members to a database, enroll students in courses, assign faculty to courses, and display available courses.
@@ -7,21 +6,21 @@ The University Enrollment System is a Java console application designed to manag
 
 ## Prerequisites
   • Java Development Kit (JDK) installed on your system.
-
   • MySQL database server installed on your system.
 
  ## Database 
-  • Start your MySQL database server.
-  • Create a new database named project.
-  • Create the following tables within the project database:
-    1. students: Columns - student_id (INT, AUTO_INCREMENT), name (VARCHAR), email (VARCHAR)
-    2. courses: Columns - course_id (INT, AUTO_INCREMENT), course_name (VARCHAR), course_description (VARCHAR), faculty_id (INT)
-    3. faculty: Columns - faculty_id (INT, AUTO_INCREMENT), name (VARCHAR), email (VARCHAR)
-    4.  enrollments: Columns - enrollment_id (INT, AUTO_INCREMENT), student_id (INT), course_id (INT), enrollment_date (DATE)
-  • Ensure your MySQL server is running on localhost with the default port 3306, and the username and password are set to the server which has the database.
+  1. Start your MySQL database server.
+  2. Create a new database named project.
+  3. Create the following tables within the project database:
+    • students: Columns - student_id (INT, AUTO_INCREMENT), name (VARCHAR), email (VARCHAR)
+    • courses: Columns - course_id (INT, AUTO_INCREMENT), course_name (VARCHAR), course_description (VARCHAR), faculty_id (INT)
+    • faculty: Columns - faculty_id (INT, AUTO_INCREMENT), name (VARCHAR), email (VARCHAR)
+    •  enrollments: Columns - enrollment_id (INT, AUTO_INCREMENT), student_id (INT), course_id (INT), enrollment_date (DATE)
+  4. Ensure your MySQL server is running on localhost with the default port 3306, and the username and password are set to the server which has the database.
+
 ## Application Setup
-  • Clone this repository to your local machine.
-  • Navigate to the project directory in your terminal or command prompt.
+  1. Clone this repository to your local machine.
+  2. Navigate to the project directory in your terminal or command prompt.
     
 
 
